@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hazelcast
+        xsi:schemaLocation="http://www.hazelcast.com/schema/config https://hazelcast.com/schema/config/hazelcast-config-3.7.xsd"
+        xmlns="http://www.hazelcast.com/schema/config"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <!-- Cluster group name and password -->
+    <group>
+        <name>product-cluster</name>
+        <password>product-pass</password>
+    </group>
+
+    <!-- Network configuration -->
+    <network>
+        <join>
+            <!-- want to turn this off for standalone -->
+            <multicast enabled="true"/>
+        </join>
+    </network>
+    <cache name="product-cache">
+        <management-enabled>true</management-enabled>
+        <statistics-enabled>true</statistics-enabled>
+        <expiry-policy-factory>
+            <timed-expiry-policy-factory 
+                expiry-policy-type = "TOUCHED"
+                duration-amount = "15"
+                time-unit = "SECONDS" />
+        </expiry-policy-factory>
+<!--         <read-through>true</read-through> -->
+<!--         <cache-loader-factory class-name=""/> -->
+    </cache>
+</hazelcast>
